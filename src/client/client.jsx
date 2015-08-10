@@ -8,7 +8,7 @@ import * as reducers from '../shared/reducers/index';
 import Routes from '../shared/components/Routes';
 
 const combinedReducers = combineReducers({ router: routerStateReducer, ...reducers });
-const store = createStore(combinedReducers);
+const store = createStore(combinedReducers, window.__DATA__);
 
 document.addEventListener('DOMContentLoaded', () => {
   const history = new BrowserHistory();

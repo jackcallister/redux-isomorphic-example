@@ -10,8 +10,11 @@ import Routes from '../../shared/components/Routes';
 
 export default (req, res, next) => {
 
+  // Payload needed for Redux (rendering) and sending to client.
+  const payload = { data: 'Hello, World' };
+
   const combinedReducers = combineReducers({ router: routerStateReducer, ...reducers });
-  const store = createStore(combinedReducers);
+  const store = createStore(combinedReducers, payload);
 
   const location = new Location(req.path, req.query);
 
@@ -24,7 +27,8 @@ export default (req, res, next) => {
     );
 
     res.render('index', {
-      html: html
+      html: html,
+      payload: JSON.stringify(payload)
     });
   });
 }

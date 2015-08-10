@@ -1,11 +1,11 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router';
-import Root from './Root';
+import { Route } from 'react-router';
+import Layout from './Layout';
 import App from './App';
 
 const Routes = (
-  <Route component={App}>
-    <Route path="/" component={Root} />
+  <Route component={Layout}>
+    <Route path="/" component={App}/>
   </Route>
 )
 

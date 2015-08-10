@@ -5,5 +5,5 @@ pids
 *.pid
 *.seed
 
-build
+dist
 node_modules

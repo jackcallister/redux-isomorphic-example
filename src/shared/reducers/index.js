@@ -1,7 +1,5 @@
-import person from './personReducer';
-import progress from './progressReducer';
+import data from './data';
 
 export {
-  person,
-  progress
+  data,
 }
