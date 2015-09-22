@@ -1,22 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Router, Route } from 'react-router';
-import { reduxRouteComponent, routerStateReducer } from 'redux-react-router';
-import { createStore, combineReducers } from 'redux';
-import BrowserHistory from 'react-router/lib/BrowserHistory';
-import * as reducers from '../shared/reducers/index';
-import Routes from '../shared/components/Routes';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Router } from 'react-router'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import createBrowserHistory from 'history/lib/createBrowserHistory'
+import reducers from '../shared/reducers'
+import routes from '../shared/components/routes'
 
-const combinedReducers = combineReducers({ router: routerStateReducer, ...reducers });
-const store = createStore(combinedReducers, window.__DATA__);
+const history = createBrowserHistory()
+const store = createStore(reducers, window.__DATA__)
 
 document.addEventListener('DOMContentLoaded', () => {
-  const history = new BrowserHistory();
-
   ReactDOM.render(
-    <Router history={history}>
-      <Route component={reduxRouteComponent(store)} children={Routes} />
-    </Router>,
+    <Provider store={store}>
+      <Router history={history} children={routes}/>
+    </Provider>,
     document.getElementById('app')
-  );
-});
+  )
+})

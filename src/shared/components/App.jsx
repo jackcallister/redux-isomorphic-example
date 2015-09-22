@@ -1,27 +1,25 @@
-import React from 'react';
-import { Connector } from 'react-redux';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-class App {
+class App extends Component {
   render() {
     return (
       <h1>{this.props.data}</h1>
-    );
+    )
   }
 }
 
-function selectData(store) {
-  return { data: store.data };
+function mapStateToProps(store) {
+  return { data: store.data }
 }
 
-export default class AppConnector {
+class AppConnector extends Component {
 
   render() {
     return (
-      <Connector select={selectData}>
-        {({data}) =>
-          <App data={data} />
-        }
-      </Connector>
-    );
+      <App data={this.props.data}/>
+    )
   }
 }
+
+export default connect(mapStateToProps)(AppConnector)

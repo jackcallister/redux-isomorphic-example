@@ -1,2 +1,2 @@
-require('babel/register');
-require('./index');
+require('babel/register')
+require('./index')

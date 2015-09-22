@@ -1,5 +1,6 @@
-import data from './data';
+import { combineReducers } from 'redux'
+import data from './data'
 
-export {
+export default combineReducers({
   data,
-}
+})

@@ -1,19 +1,19 @@
-import express from 'express';
-import path from 'path';
-import http from 'http';
-import render from './utils/render';
+import express from 'express'
+import path from 'path'
+import http from 'http'
+import render from './utils/render'
 
-const app = express();
+const app = express()
 
-app.set('views', 'src/server/views/');
-app.set('view engine', 'ejs');
+app.set('views', 'src/server/views/')
+app.set('view engine', 'ejs')
 
-app.use('/public', express.static(path.join(__dirname, '../../dist')));
+app.use('/public', express.static(path.join(__dirname, '../../dist')))
 
 app.use('/favicon.ico', (req, res) => {
-  return;
-});
+  return
+})
 
-app.use('/', render);
+app.use('/', render)
 
-module.exports = http.Server(app);
+module.exports = http.Server(app)

@@ -1,34 +1,26 @@
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-import Location from 'react-router/lib/Location';
-import { history } from 'react-router/lib/History';
-import { Router, Route } from 'react-router';
-import { reduxRouteComponent, routerStateReducer } from 'redux-react-router';
-import { createStore, combineReducers } from 'redux';
-import * as reducers from '../../shared/reducers/index';
-import Routes from '../../shared/components/Routes';
+import React from 'react'
+import ReactDOMServer from 'react-dom/server'
+import createMemoryHistory from 'history/lib/createMemoryHistory'
+import { Router } from 'react-router'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import reducers from '../../shared/reducers'
+import routes from '../../shared/components/routes'
 
 export default (req, res, next) => {
-
   // Payload needed for Redux (rendering) and sending to client.
-  const payload = { data: 'Hello, World' };
+  const payload = { data: 'Hello, World' }
 
-  const combinedReducers = combineReducers({ router: routerStateReducer, ...reducers });
-  const store = createStore(combinedReducers, payload);
+  const history = createMemoryHistory() // What about params etc.
+  const store = createStore(reducers, payload)
 
-  const location = new Location(req.path, req.query);
+  const app = React.createElement(Provider, {store: store},
+    React.createElement(Router, {history: history, children: routes})
+  )
+  const html = ReactDOMServer.renderToString(app)
 
-  const route = React.createElement(Route, {component: reduxRouteComponent(store), children: Routes});
-  const routes = React.createElement(Router, {history: history, children: route});
-
-  Router.run(routes, location, (error, initialState, transition) => {
-    const html = ReactDOMServer.renderToString(
-      React.createElement(Router, {...initialState})
-    );
-
-    res.render('index', {
-      html: html,
-      payload: JSON.stringify(payload)
-    });
-  });
+  res.render('index', {
+    html: html,
+    payload: JSON.stringify(payload)
+  })
 }

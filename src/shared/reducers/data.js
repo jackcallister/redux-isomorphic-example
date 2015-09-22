@@ -1,5 +1,5 @@
-const initialState = '';
+const initialState = ''
 
 export default function data(state = initialState, action) {
-  return state;
+  return state
 }

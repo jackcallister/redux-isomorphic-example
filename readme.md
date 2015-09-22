@@ -31,7 +31,7 @@ The rendering will work like this.
 
 ### Server Side
 - An HTTP request is received by Node.
-- A `render` function is used as the callback `app.use('/', render);`
+- A `render` function is used as the callback `app.use('/', render)`
 - Render sets up the data for our application.
 - Render sets up a Redux instance with the data.
 - React router is run with the current request location.
